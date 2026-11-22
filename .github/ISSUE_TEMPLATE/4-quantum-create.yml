@@ -41,7 +41,7 @@ body:
       label: Repository URL
       description: >-
         For code-based projects, teams must submit an accessible GitHub repository containing their relevant
-        project files. Make it public so the judges can open it.
+        project files. Non-code-based projects can leave this blank.
       placeholder: https://github.com/your-team/your-repo
     validations:
       required: false
