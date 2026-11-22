@@ -1,0 +1,76 @@
+name: "Submit: Quantum Create"
+description: Creative challenge
+title: "[Create] "
+labels: ["submission", "create"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Deadline: Sunday, November 22, 11:00 AM ET.** One submission per team.
+        Code-based projects: we'll judge what's on your repository's main branch at the deadline, so you can keep pushing until then.
+        Non-code projects: you don't need a repository. Attach your files below instead.
+
+  - type: dropdown
+    id: track
+    attributes:
+      label: Track
+      options:
+        - Quantum Create
+      default: 0
+    validations:
+      required: true
+
+  - type: input
+    id: team
+    attributes:
+      label: Team name
+    validations:
+      required: true
+
+  - type: textarea
+    id: members
+    attributes:
+      label: Team members
+      description: One per line.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Project type
+      options:
+        - Code-based
+        - Non-code
+    validations:
+      required: true
+
+  - type: input
+    id: repo
+    attributes:
+      label: Repository URL
+      description: >-
+        For code-based projects, teams must submit an accessible GitHub repository containing their relevant
+        project files. Make it public so the judges can open it.
+      placeholder: https://github.com/your-team/your-repo
+    validations:
+      required: false
+
+  - type: textarea
+    id: files
+    attributes:
+      label: Project files and documentation
+      description: >-
+        For non-code projects, equivalent accessible project files and supporting documentation will be accepted.
+        Attach them here (drag and drop) or link to them. Code-based projects can leave this blank.
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: Confirmations
+      description: From the Quantum Create challenge brief.
+      options:
+        - label: "For code-based projects, teams must submit an accessible GitHub repository containing their relevant project files. For non-code projects, equivalent accessible project files and supporting documentation will be accepted."
+          required: true
