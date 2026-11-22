@@ -8,7 +8,7 @@ body:
       value: |
         **Deadline: Sunday, November 22, 11:00 AM.** Only one person needs to submit per team.
         Code-based projects: we'll judge what's on your repository's main branch at the deadline, so you can keep pushing until then.
-        Non-code projects: you don't need a repository and can attach your files below instead :)
+        Non-code projects: you don't need a repository and can attach your files below instead.
 
   - type: dropdown
     id: track
