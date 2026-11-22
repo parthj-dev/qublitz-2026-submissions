@@ -6,8 +6,8 @@ body:
   - type: markdown
     attributes:
       value: |
-        **Deadline: Sunday, November 22, 11:00 AM ET.** One submission per team.
-        We'll judge what's on your repository's main branch at the deadline, so you can keep pushing until then.
+        **Deadline: Sunday, November 22, 11:00 AM.** One submission per team.
+        Even if you haven't completed this challenge, feel free to submit what you have! We will judge whatever you submit by 11:00 AM so you can keep pushing until then.
 
   - type: dropdown
     id: track
