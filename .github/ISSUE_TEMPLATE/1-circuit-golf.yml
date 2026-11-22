@@ -42,12 +42,3 @@ body:
       placeholder: https://github.com/your-team/your-repo
     validations:
       required: true
-
-  - type: checkboxes
-    id: confirm
-    attributes:
-      label: Confirmations
-      description: From the Circuit Golf technical instructions.
-      options:
-        - label: "Our repository contains `submission.py` (defining `optimize(circuit, config)`), our dependencies, run instructions, and the experimentation/results required by the main challenge description."
-          required: true
