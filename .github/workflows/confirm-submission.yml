@@ -1,0 +1,121 @@
+name: Confirm submission
+
+on:
+  issues:
+    types: [opened, edited]
+  # "Run workflow" button: confirms every open submission that doesn't have a confirmation yet.
+  workflow_dispatch:
+
+permissions:
+  issues: write
+
+concurrency:
+  group: confirm-${{ github.event.issue.number || 'all' }}
+  cancel-in-progress: true
+
+jobs:
+  confirm:
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.issue.body, '### Repository URL')
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Confirm the submission and check the repository is public
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          python3 - <<'PY'
+          import json, os, re, urllib.request, urllib.error
+
+          API = "https://api.github.com"
+          TOKEN, REPO = os.environ["GITHUB_TOKEN"], os.environ["REPO"]
+          MARKER = "<!-- qublitz-confirmation -->"
+          DEADLINE = "11:00 AM ET on Sunday, November 22"
+
+
+          def call(method, path, body=None):
+              url = path if path.startswith("http") else API + path
+              data = json.dumps(body).encode() if body is not None else None
+              req = urllib.request.Request(url, data=data, method=method)
+              req.add_header("Authorization", f"Bearer {TOKEN}")
+              req.add_header("Accept", "application/vnd.github+json")
+              req.add_header("Content-Type", "application/json")
+              try:
+                  with urllib.request.urlopen(req, timeout=30) as r:
+                      return r.status, json.loads(r.read() or b"null")
+              except urllib.error.HTTPError as e:
+                  return e.code, None
+
+
+          def field(body, label):
+              m = re.search(r"^### " + re.escape(label) + r"[ \t]*$(.*?)(?=^### |\Z)", body or "", re.M | re.S)
+              text = m.group(1).strip() if m else ""
+              return "" if text == "_No response_" else text
+
+
+          def reply(issue):
+              body = issue.get("body") or ""
+              team = field(body, "Team name").replace("*", "").replace("`", "") or "team"
+              link = field(body, "Repository URL")
+              change = (f"To change anything in this form before **{DEADLINE}**, edit this issue "
+                        "rather than opening a new one.")
+              if not link:
+                  return (f"{MARKER}\n## ✅ Submission received\n\nThanks, **{team}**! We've got your submission.\n\n{change}")
+              m = re.search(r"github\.com[/:]([A-Za-z0-9-]+)/([A-Za-z0-9._-]+)", link)
+              if not m:
+                  shown = link.splitlines()[0][:100].replace("`", "")
+                  return (f"{MARKER}\n## ❌ We can't read your repository link\n\nThanks, **{team}**, we've got your "
+                          f"submission, but `{shown}` doesn't look like a GitHub repository link. It should look like "
+                          "`https://github.com/your-team/your-repo`. Please edit this issue (**⋯** → **Edit**), fix the "
+                          "link, and save. We'll check again automatically.")
+              owner, name = m.group(1), re.sub(r"\.git$", "", m.group(2)).rstrip(".")
+              status, data = call("GET", f"/repos/{owner}/{name}")
+              if status == 200 and data and not data.get("private"):
+                  full = data["full_name"]
+                  return (f"{MARKER}\n## ✅ Submission received\n\nThanks, **{team}**! We've got your submission, and "
+                          f"your repository [`{full}`](https://github.com/{full}) is public, so the judges can open it.\n\n"
+                          f"We'll judge what's on its main branch at **{DEADLINE}**. To change anything in this form "
+                          "before then, edit this issue rather than opening a new one.")
+              return (f"{MARKER}\n## ❌ We can't open your repository\n\nThanks, **{team}**, we've got your submission, "
+                      f"but we can't open `{owner}/{name}`. Please check that the link is right and that the repository is "
+                      "public, then edit this issue (**⋯** → **Edit**) and save. We'll check again automatically.")
+
+
+          def confirm(issue):
+              n = issue["number"]
+              text = reply(issue)
+              status, comments = call("GET", f"/repos/{REPO}/issues/{n}/comments?per_page=100")
+              mine = next((c for c in comments or [] if MARKER in (c.get("body") or "")
+                           and (c.get("user") or {}).get("type") == "Bot"), None)
+              if mine is None:
+                  call("POST", f"/repos/{REPO}/issues/{n}/comments", {"body": text})
+                  print(f"#{n}: posted")
+              elif mine.get("body") != text:
+                  call("PATCH", f"/repos/{REPO}/issues/comments/{mine['id']}", {"body": text})
+                  print(f"#{n}: updated")
+              else:
+                  print(f"#{n}: already confirmed")
+
+
+          def is_submission(issue):
+              return ("pull_request" not in issue and issue.get("state") == "open"
+                      and "### Repository URL" in (issue.get("body") or ""))
+
+
+          number = os.environ.get("ISSUE_NUMBER", "").strip()
+          if number:
+              status, issue = call("GET", f"/repos/{REPO}/issues/{number}")
+              if status == 200 and is_submission(issue):
+                  confirm(issue)
+          else:
+              page = 1
+              while True:
+                  status, issues = call("GET", f"/repos/{REPO}/issues?state=open&per_page=100&page={page}")
+                  if status != 200 or not issues:
+                      break
+                  for issue in issues:
+                      if is_submission(issue):
+                          confirm(issue)
+                  page += 1
+          PY
