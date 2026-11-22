@@ -20,11 +20,9 @@ For full details, please look at the submission checklist in each challenge brie
   - **Code repository:** A GitHub repository containing the source code, quantum circuits, and instructions needed to reproduce the project.
   - **Challenge results:** A summary of completed levels, including simulation results and evidence that the proposed error-correction procedures work.
   - **IQM implementation:** The circuit implemented on IQM quantum hardware, the corresponding experimental results, and a brief explanation of the observations.
-  - **Live demonstration:** A presentation showing how the solution works, which errors it detects or corrects, and the team’s design decisions.
 - **Magic State Verification:** Each team must submit:
   - **GitHub repository:** the complete working implementation, dependencies, and run instructions.
   - **Results:** a concise notebook or report presenting experiments of the team’s choice and explaining what they demonstrate about the algorithm.
-  - **Live demonstration:** an explanation of the algorithm, a working example, and answers to questions about measurement choices, statistical assumptions, and correctness.
   - **Attribution:** references for any published methods, external code, or AI-generated work used in the submission.
 - **Quantum Create:** For code-based projects, teams must submit an accessible GitHub repository containing their relevant project files. For non-code projects, equivalent accessible project files and supporting documentation will be accepted. Each team will present its project through a live demonstration followed by questions from the judges.
 
