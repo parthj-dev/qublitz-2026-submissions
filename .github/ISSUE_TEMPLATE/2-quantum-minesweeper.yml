@@ -6,8 +6,9 @@ body:
   - type: markdown
     attributes:
       value: |
-        **Deadline: Sunday, November 22, 11:00 AM ET.** One submission per team.
-        We'll judge what's on your repository's main branch at the deadline, so you can keep pushing until then.
+        **Deadline: Sunday, November 22, 11:00 AM.** One submission per team.
+        Even if you haven't completed this challenge, feel free to submit what you have! The results sections are optional but feel free to add them if you have completed
+        those parts of the project. We will judge whatever you submit by 11:00 AM so feel free to keep pushing until then.
 
   - type: dropdown
     id: track
@@ -30,7 +31,7 @@ body:
     id: members
     attributes:
       label: Team members
-      description: One per line.
+      description:
     validations:
       required: true
 
@@ -38,7 +39,7 @@ body:
     id: repo
     attributes:
       label: Repository URL
-      description: Make it public so the judges can open it.
+      description: 
       placeholder: https://github.com/your-team/your-repo
     validations:
       required: true
@@ -49,9 +50,9 @@ body:
       label: Challenge results
       description: >-
         A summary of completed levels, including simulation results and evidence that the proposed
-        error-correction procedures work. Write it here, attach files, or tell us where to find it in your repository.
+        error-correction procedures work.
     validations:
-      required: true
+      required: false
 
   - type: textarea
     id: iqm
@@ -59,15 +60,6 @@ body:
       label: IQM implementation
       description: >-
         The circuit implemented on IQM quantum hardware, the corresponding experimental results, and a brief
-        explanation of the observations. Write it here, attach files, or tell us where to find it in your repository.
+        explanation of the observations.
     validations:
-      required: true
-
-  - type: checkboxes
-    id: confirm
-    attributes:
-      label: Confirmations
-      description: From the Quantum Minesweeper challenge brief.
-      options:
-        - label: "Code repository: A GitHub repository containing the source code, quantum circuits, and instructions needed to reproduce the project."
-          required: true
+      required: false
