@@ -7,7 +7,7 @@ body:
     attributes:
       value: |
         **Deadline: Sunday, November 22, 11:00 AM.** Only one person needs to submit per team.
-        Even if you haven't completed this challenge, feel free to submit what you have! The results sections are optional but feel free to add them if you have completed those parts of the project. We will judge whatever you submit by 11:00 AM so you can keep pushing until then :)
+        Even if you haven't completed this challenge, feel free to submit what you have! We will judge whatever you submit by 11:00 AM so you can keep pushing until then.
 
   - type: dropdown
     id: track
@@ -51,7 +51,7 @@ body:
         A summary of completed levels, including simulation results and evidence that the proposed
         error-correction procedures work. You can tell us where to find it in the repository or attach it here.
     validations:
-      required: false
+      required: true
 
   - type: textarea
     id: iqm
@@ -61,4 +61,4 @@ body:
         The circuit implemented on IQM quantum hardware, the corresponding experimental results, and a brief
         explanation of the observations.
     validations:
-      required: false
+      required: true
