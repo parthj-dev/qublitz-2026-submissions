@@ -1,6 +1,6 @@
 # QuBlitz 2026: Submit your project
 
-**Deadline: Sunday, November 22, 11:00 AM ET**
+**Deadline: Sunday, November 22, 11:00 AM**
 
 ## How to submit
 
