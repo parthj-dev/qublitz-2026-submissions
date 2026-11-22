@@ -6,9 +6,9 @@ body:
   - type: markdown
     attributes:
       value: |
-        **Deadline: Sunday, November 22, 11:00 AM ET.** One submission per team.
+        **Deadline: Sunday, November 22, 11:00 AM.** Only one person needs to submit per team.
         Code-based projects: we'll judge what's on your repository's main branch at the deadline, so you can keep pushing until then.
-        Non-code projects: you don't need a repository. Attach your files below instead.
+        Non-code projects: you don't need a repository and can attach your files below instead :)
 
   - type: dropdown
     id: track
@@ -31,19 +31,9 @@ body:
     id: members
     attributes:
       label: Team members
-      description: One per line.
+      description:
     validations:
-      required: true
-
-  - type: dropdown
-    id: kind
-    attributes:
-      label: Project type
-      options:
-        - Code-based
-        - Non-code
-    validations:
-      required: true
+      required: false
 
   - type: input
     id: repo
@@ -65,12 +55,3 @@ body:
         Attach them here (drag and drop) or link to them. Code-based projects can leave this blank.
     validations:
       required: false
-
-  - type: checkboxes
-    id: confirm
-    attributes:
-      label: Confirmations
-      description: From the Quantum Create challenge brief.
-      options:
-        - label: "For code-based projects, teams must submit an accessible GitHub repository containing their relevant project files. For non-code projects, equivalent accessible project files and supporting documentation will be accepted."
-          required: true
