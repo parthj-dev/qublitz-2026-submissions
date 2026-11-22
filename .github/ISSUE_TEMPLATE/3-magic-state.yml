@@ -7,7 +7,7 @@ body:
     attributes:
       value: |
         **Deadline: Sunday, November 22, 11:00 AM.** Only one person needs to submit per team.
-        Even if you haven't completed this challenge, feel free to submit what you have! The results and attributions sections are optional but feel free to add them if you have completed those parts of the project. We will judge whatever you submit by 11:00 AM so you can keep pushing until then :)
+        Even if you haven't completed this challenge, feel free to submit what you have! We will judge whatever you submit by 11:00 AM so you can keep pushing until then.
 
   - type: dropdown
     id: track
@@ -38,7 +38,7 @@ body:
     id: repo
     attributes:
       label: Repository URL
-      description:
+      description: Make sure this is public so the judges can open it.
       placeholder: https://github.com/your-team/your-repo
     validations:
       required: true
@@ -51,7 +51,7 @@ body:
         A concise notebook or report presenting experiments of the team’s choice and explaining what they
         demonstrate about the algorithm. You can tell us where to find it in the repository or attach it here.
     validations:
-      required: false
+      required: true
 
   - type: textarea
     id: attribution
@@ -61,4 +61,4 @@ body:
         References for any published methods, external code, or AI-generated work used in the submission.
         Write "None" if there aren't any.
     validations:
-      required: false
+      required: true
