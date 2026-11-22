@@ -7,8 +7,7 @@ body:
     attributes:
       value: |
         **Deadline: Sunday, November 22, 11:00 AM.** Only one person needs to submit per team.
-        Even if you haven't completed this challenge, feel free to submit what you have! The results sections are optional but feel free to add them if you have completed
-        those parts of the project. We will judge whatever you submit by 11:00 AM so you can keep pushing until then :)
+        Even if you haven't completed this challenge, feel free to submit what you have! The results sections are optional but feel free to add them if you have completed those parts of the project. We will judge whatever you submit by 11:00 AM so you can keep pushing until then :)
 
   - type: dropdown
     id: track
