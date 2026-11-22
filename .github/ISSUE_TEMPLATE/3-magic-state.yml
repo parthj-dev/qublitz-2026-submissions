@@ -31,7 +31,7 @@ body:
     id: members
     attributes:
       label: Team members
-      description: One per line.
+      description:
     validations:
       required: true
 
@@ -39,7 +39,7 @@ body:
     id: repo
     attributes:
       label: Repository URL
-      description: Make it public so the judges can open it.
+      description:
       placeholder: https://github.com/your-team/your-repo
     validations:
       required: true
@@ -50,9 +50,9 @@ body:
       label: Results
       description: >-
         A concise notebook or report presenting experiments of the team’s choice and explaining what they
-        demonstrate about the algorithm. Tell us where to find it in your repository, or attach it here.
+        demonstrate about the algorithm. You can tell us where to find it in the repository or attach it here.
     validations:
-      required: true
+      required: false
 
   - type: textarea
     id: attribution
@@ -62,13 +62,4 @@ body:
         References for any published methods, external code, or AI-generated work used in the submission.
         Write "None" if there aren't any.
     validations:
-      required: true
-
-  - type: checkboxes
-    id: confirm
-    attributes:
-      label: Confirmations
-      description: From the Magic State Verification challenge brief.
-      options:
-        - label: "GitHub repository: the complete working implementation, dependencies, and run instructions."
-          required: true
+      required: false
